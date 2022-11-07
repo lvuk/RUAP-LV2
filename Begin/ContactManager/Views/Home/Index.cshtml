@@ -1,5 +1,17 @@
 ﻿<div id="body">
     <ul id="contacts"></ul>
+    <form id="saveContactForm" method="post">
+        <h3>Create a new Contact</h3>
+        <p>
+            <label for="contactId">Contact Id:</label>
+            <input type="text" name="Id" />
+        </p>
+        <p>
+            <label for="contactName">Contact Name:</label>
+            <input type="text" name="Name" />
+        </p>
+        <input type="button" id="saveContact" value="Save" />
+    </form>
 </div>
 
 @section scripts{
@@ -14,5 +26,14 @@ $(function()
             });
         });
 });
+        $('#saveContact').click(function () {
+            $.post("api/contact",
+                $("#saveContactForm").serialize(),
+                function (value) {
+                    $('#contacts').append('<li>' + value.Name + '</li>');
+                },
+                "json"
+            );
+        });
     </script>
 }
